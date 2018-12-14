@@ -5,13 +5,26 @@ class UsersController < ApplicationController
 
   def new
     @users = User.new
+    h = Time.now.hour
+    m = Time.now.min
+    s = Time.now.sec
+    @time = ("#{h}:#{m}:#{s}")
   end
 
   def create
-		User.create(users_param)
+    
+    params[:checkin] = Time.now.to_s
+    params[:lat] = "latitude"
+    params[:long] = "Longitude"
 
 
-	end
+    Rails.logger.info "\n\n #{users_param} \n\n"
+
+
+    User.create(users_param)
+
+
+  end
 
   private
   def users_param
